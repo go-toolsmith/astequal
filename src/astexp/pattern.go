@@ -10,12 +10,17 @@ import (
 type patternTag int
 
 const (
-	tagNumber = patternTag(^uint(0)>>1) - iota
-	tagCall
+	tagCall     = patternTag(^uint(0)>>1) - iota
 	tagCallStmt // Matches ExprStmt{X: CallExpr}
 	tagDeref
 	tagBlock
 	tagMemberAccess
+	tagAnyIdent
+	tagAnyInt
+	tagAnyFloat
+	tagAnyImag
+	tagAnyChar
+	tagAnyString
 	tagEllipsis
 
 	tagIdent  = patternTag(token.IDENT)
@@ -142,14 +147,20 @@ func (pat *Pattern) match(node ast.Node) bool {
 		if node.Kind == token.Token(pat.tag) && node.Value == pat.value {
 			return true
 		}
-
 		switch node.Kind {
 		case token.INT:
-			return pat.tag == tagNumber && node.Value == pat.value
+			return pat.tag == tagAnyInt
 		case token.FLOAT:
-			return pat.tag == tagNumber && node.Value == pat.value
+			return pat.tag == tagAnyFloat
+		case token.IMAG:
+			return pat.tag == tagAnyImag
+		case token.CHAR:
+			return pat.tag == tagAnyChar
+		case token.STRING:
+			return pat.tag == tagAnyString
+		default:
+			return false
 		}
-		return false
 
 	case *ast.ExprStmt:
 		if node, ok := node.X.(*ast.CallExpr); ok {
@@ -163,7 +174,8 @@ func (pat *Pattern) match(node ast.Node) bool {
 		return pat.match(node.X)
 
 	case *ast.Ident:
-		return pat.tag == tagIdent && pat.value == node.Name
+		return (pat.tag == tagIdent && pat.value == node.Name) ||
+			pat.tag == tagAnyIdent
 
 	case *ast.CallExpr:
 		return pat.tag == tagCall && pat.matchCallExpr(node)

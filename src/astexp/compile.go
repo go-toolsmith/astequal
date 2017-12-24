@@ -65,6 +65,20 @@ func (cl *Compiler) compileWildcard(name, kind string) (Pattern, error) {
 	switch kind {
 	case "...":
 		return Pattern{tag: tagEllipsis}, nil
+
+	case "id":
+		return Pattern{tag: tagAnyIdent}, nil
+	case "int":
+		return Pattern{tag: tagAnyInt}, nil
+	case "float":
+		return Pattern{tag: tagAnyFloat}, nil
+	case "imag":
+		return Pattern{tag: tagAnyImag}, nil
+	case "char":
+		return Pattern{tag: tagAnyChar}, nil
+	case "str":
+		return Pattern{tag: tagAnyString}, nil
+
 	default:
 		return Pattern{}, fmt.Errorf("unknown wildcard: %v", kind)
 	}

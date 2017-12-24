@@ -50,6 +50,16 @@ func TestMatchExprAccept(t *testing.T) {
 
 		{`f().x`, `(. (call f) x)`},
 		{`f().g().x`, `(. (call (. (call f) g)) x)`},
+
+		{`1 + 2.3`, `(+ 1 $float)`},
+		{`1 + 2.3`, `(+ $int 2.3)`},
+		{`1 + 2.3`, `(+ $int $float)`},
+		{`"a" + "b"`, `(+ "a" $str)`},
+		{`"a" + "b"`, `(+ $str "b")`},
+		{`"a" + "b"`, `(+ $str $str)`},
+		{`ch - '0'`, `(- ch $char)`},
+		{`ch - '0'`, `(- $id '0')`},
+		{`ch - '0'`, `(- $id $char)`},
 	}
 
 	for _, test := range tests {

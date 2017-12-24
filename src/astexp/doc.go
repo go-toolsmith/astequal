@@ -20,6 +20,9 @@
 // Limitations:
 //	- ast.ParenExpr is ignored and can't be expressed in patterns.
 //	- comments are ignored.
+// See issues with "limitation" label for additional known limitations:
+//	https://github.com/Quasilyte/astexp/issues?q=is%3Aissue+is%3Aopen+label%3Alimitation.
+// Some of them may get resolved in future.
 //
 // Warning: undocummented/untested pattern combinations
 // may behave differently from version to version.
