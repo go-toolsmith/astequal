@@ -3,7 +3,7 @@ Like regular expressions, but for Go AST.
 
 ## Use cases
 
-`astexp` intended to be used by Go tools that examine `go/ast` nodes for
+`astexp` is intended to be used by Go tools that examine `go/ast` nodes for
 specific patterns.
 
 This list includes programs like:
