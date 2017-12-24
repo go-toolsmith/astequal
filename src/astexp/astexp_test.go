@@ -12,17 +12,6 @@ type matchTest struct {
 	tmpl  string
 }
 
-func TestMatchExprReject(t *testing.T) {
-	tests := []matchTest{
-		{`f()`, `(callstmt f)`},
-		{`1 + f(x)`, `(+ 1 (callstmt f x))`},
-	}
-
-	for _, test := range tests {
-		runMatchTest(t, false, test, astExpr(t, test.input))
-	}
-}
-
 func TestMatchExprAccept(t *testing.T) {
 	tests := []matchTest{
 		{`1`, `1`},
@@ -64,6 +53,17 @@ func TestMatchExprAccept(t *testing.T) {
 
 	for _, test := range tests {
 		runMatchTest(t, true, test, astExpr(t, test.input))
+	}
+}
+
+func TestMatchExprReject(t *testing.T) {
+	tests := []matchTest{
+		{`f()`, `(callstmt f)`},
+		{`1 + f(x)`, `(+ 1 (callstmt f x))`},
+	}
+
+	for _, test := range tests {
+		runMatchTest(t, false, test, astExpr(t, test.input))
 	}
 }
 
@@ -117,7 +117,7 @@ func astStmt(t *testing.T, code string) ast.Node {
 	}
 	fset := token.NewFileSet()
 	f, err := parser.ParseFile(
-		fset, "", "package main;func main() {"+code+"}", 0)
+		fset, "", "package main;func main() {"+code+"}", parser.ParseComments)
 	if err != nil {
 		t.Fatalf("Go parse stmt: %v", err)
 	}
@@ -143,7 +143,7 @@ func astFile(t *testing.T, code string) ast.Node {
 		return node
 	}
 	fset := token.NewFileSet()
-	node, err := parser.ParseFile(fset, "", code, 0)
+	node, err := parser.ParseFile(fset, "", code, parser.ParseComments)
 	if err != nil {
 		t.Fatalf("Go parse file: %v", err)
 	}
