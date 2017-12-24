@@ -1,6 +1,17 @@
 # astexp
 Like regular expressions, but for Go AST.
 
+## Use cases
+
+`astexp` intended to be used by Go tools that examine `go/ast` nodes for
+specific patterns.
+
+This list includes programs like:
+- Static code analyzers and linters
+- Go code analyzers
+- Editor/IDE extensions for code search by syntax-aware queries
+- Source-level code optimizers
+
 ## Description
 
 This description is taken from `astexp/doc.go` as a temporary placeholder.
