@@ -225,6 +225,10 @@ func (cl *Compiler) compileListTag() (patternTag, error) {
 			return tagCallStmt, nil
 		case "block":
 			return tagBlock, nil
+		case "array_type":
+			return tagArrayType, nil
+		case "slice_type":
+			return tagSliceType, nil
 		}
 	}
 

@@ -49,6 +49,12 @@ func TestMatchExprAccept(t *testing.T) {
 		{`ch - '0'`, `(- ch $char)`},
 		{`ch - '0'`, `(- $id '0')`},
 		{`ch - '0'`, `(- $id $char)`},
+
+		{`[5]int`, `(array_type 5 int)`},
+		{`[foo + 1][10]float32`, `(array_type (+ foo 1) (array_type 10 float32))`},
+		{`[]int`, `(slice_type int)`},
+		{`[][]int`, `(slice_type (slice_type int))`},
+		{`[][][]Point`, `(slice_type (slice_type (slice_type Point)))`},
 	}
 
 	for _, test := range tests {

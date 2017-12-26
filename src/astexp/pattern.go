@@ -15,6 +15,8 @@ const (
 	tagDeref
 	tagBlock
 	tagMemberAccess
+	tagArrayType
+	tagSliceType
 	tagAnyIdent
 	tagAnyInt
 	tagAnyFloat
@@ -193,6 +195,14 @@ func (pat *Pattern) match(node ast.Node) bool {
 			pat.tail[0].match(node.X) &&
 			pat.tail[1].match(node.Sel)
 
+	case *ast.ArrayType:
+		if node.Len == nil {
+			return pat.tag == tagSliceType &&
+				pat.tail[0].match(node.Elt)
+		}
+		return pat.tag == tagArrayType &&
+			pat.tail[0].match(node.Len) &&
+			pat.tail[1].match(node.Elt)
 	}
 
 	// FIXME: this should be removed when all AST nodes are handled.
