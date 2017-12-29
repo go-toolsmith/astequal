@@ -10,7 +10,7 @@ type matcher struct {
 	captures map[string]ast.Node
 
 	// String values, read-only storage.
-	// Shared between pattern and it's sub patterns.
+	// Shared between all patterns.
 	values []string
 
 	// Main pattern and all sub-patterns.
