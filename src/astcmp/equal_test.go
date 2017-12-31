@@ -1,8 +1,6 @@
 package astcmp
 
-import (
-	"testing"
-)
+import "testing"
 
 type astEqualTest struct {
 	// x/y - expr/stmt/decl strings.
@@ -47,25 +45,25 @@ func TestEqualExprString(t *testing.T) {
 		})
 	}
 	test := func(name string, expressions ...string) {
-		var suite []astEqualTest
+		var tests []astEqualTest
 
 		for _, x := range expressions {
-			suite = append(suite, astEqualTest{
+			tests = append(tests, astEqualTest{
 				x:    x,
 				y:    `/**/` + x + `/**/`,
 				want: true,
 			})
-			suite = append(suite, astEqualTest{x: x, y: `a[` + x + `]`})
+			tests = append(tests, astEqualTest{x: x, y: `a[` + x + `]`})
 			for _, y := range expressions {
 				if x == y {
 					continue
 				}
 				test := astEqualTest{x: x + "/**/", y: "/**/" + y}
-				suite = append(suite, test)
+				tests = append(tests, test)
 			}
 		}
 
-		runTests(name, suite)
+		runTests(name, tests)
 	}
 
 	runTests("Malformed", []astEqualTest{
@@ -235,25 +233,25 @@ func TestEqualStmtString(t *testing.T) {
 		})
 	}
 	test := func(name string, expressions ...string) {
-		var suite []astEqualTest
+		var tests []astEqualTest
 
 		for _, x := range expressions {
-			suite = append(suite, astEqualTest{
+			tests = append(tests, astEqualTest{
 				x:    x,
 				y:    `/**/` + x + `/**/`,
 				want: true,
 			})
-			suite = append(suite, astEqualTest{x: x, y: `{` + x + `}`})
+			tests = append(tests, astEqualTest{x: x, y: `{` + x + `}`})
 			for _, y := range expressions {
 				if x == y {
 					continue
 				}
 				test := astEqualTest{x: x + "/**/", y: "/**/" + y}
-				suite = append(suite, test)
+				tests = append(tests, test)
 			}
 		}
 
-		runTests(name, suite)
+		runTests(name, tests)
 	}
 
 	runTests("Malformed", []astEqualTest{
@@ -434,10 +432,10 @@ func TestEqualDeclString(t *testing.T) {
 		})
 	}
 	test := func(name string, expressions ...string) {
-		var suite []astEqualTest
+		var tests []astEqualTest
 
 		for _, x := range expressions {
-			suite = append(suite, astEqualTest{
+			tests = append(tests, astEqualTest{
 				x:    x,
 				y:    `/**/` + x + `/**/`,
 				want: true,
@@ -447,11 +445,11 @@ func TestEqualDeclString(t *testing.T) {
 					continue
 				}
 				test := astEqualTest{x: x + "/**/", y: "/**/" + y}
-				suite = append(suite, test)
+				tests = append(tests, test)
 			}
 		}
 
-		runTests(name, suite)
+		runTests(name, tests)
 	}
 
 	runTests("Malformed", []astEqualTest{
