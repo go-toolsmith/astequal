@@ -1,0 +1,279 @@
+x
++ x
+- y
+- xyz
+- 10
+
+xyz
++ xyz
+- x
+- y
+- 10
+
+10
++ 10
+- x
+- 20
+- 10.0
+
+20
++ 20
+- x
+- 10
+- 20.0
+
+10.0
++ 10.0
+- x
+- 20.1
+- 10
+
+20.2018
++ 20.2018
+- x
+- 10.0
+- 20
+
+""
++ ""
+- x
+- "xyz"
+
+"xyz"
++ "xyz"
+- x
+- ""
+
+\expr
++ x
++ 10
++ 10.1
++ "xyz"
++ f(x, y)
+
+\ident
++ x
++ xyz
+- "x"
+- 10
+
+\int
++ 10
++ 256
+- x
+- 10.0
+- "0"
+
+\float
++ 10.0
++ .12345E+5
++ 072.40
++ 6.67428e-11
++ 1E6
+- 10
+- x
+- "10.0"
+
+\string
++ ""
++ "xyz"
++ `abc`
+- 10
+- x
+- 10.0
+
+(. x y)
++ x.y
+- y.x
+- x
+- y
+- x.y.z
+
+(. x y z)
++ x.y.z
+- x
+- x.y
+- y.x.z
+
+(. \ident x)
++ a.x
++ b.x
++ x.x
+- x.y
+- f().x
+- a.b.x
+
+(. \ident \ident x)
++ a.b.x
++ b.a.x
++ x.x.x
+- f().x.x
+- a.b.c
+
+(== \expr nil)
++ x == nil
++ f() == nil
++ a.b == nil
+- err != nil
+- x == x
+
+(!= \expr nil)
++ err != nil
++ f() != nil
++ a[i] != nil
+- panic(x)
+- err == nil
+
+(< x y)
++ x < y
+- y < x
+- x > y
+
+(<= x y)
++ x <= y
+- y <= x
+- x >= y
+
+(> x y)
++ x > y
+- y > x
+- x < y
+
+(>= x y)
++ x >= y
+- y >= x
+- x <= y
+
+(+ \expr)
++ +10
++ +x
+- 10
+- -10
+
+(+ x y)
++ x + y
+- y + x
+- x - y
+
+
+(- \expr)
++ -10
++ -x
+- 10
+- +10
+
+(- x y)
++ x - y
+- y - x
+- x + y
+
+(* x)
++ *x
+- *y
+- x
+- x * x
+
+(* x y)
++ x * y
+- y * x
+
+(& x)
++ &x
+- &y
+- y
+- x & x
+- *x
+
+(& x y)
++ x & y
+- y & x
+- x && y
+- *x
+
+(| x y)
++ x | y
+- y | x
+- x || y
+
+(&^ x y)
++ x &^ y
+- y &^ x
+- x & y
+- x ^ y
+
+(&& x y)
++ x && y
+- y && x
+- x & y
+
+(|| x y)
++ x || y
+- y || x
+- x | y
+
+(/ x y)
++ x / y
+- y / x
+- x ^ y
+
+(% x y)
++ x % y
+- y % y
+- x ^ y
+
+(^ x)
++ ^x
+- ^y
+- x ^ x
+- *x
+
+(^ x y)
++ x ^ y
+- y ^ x
+- x % y
+
+(! x)
++ !x
+- !y
+- *x
+
+(<- x)
++ <- x
+- <- y
+- *x
+
+(<< x y)
++ x << y
+- y << x
+- x >> y
+
+(>> x y)
++ x >> y
+- y >> y
+- x << y
+
+(call f)
++ f()
+- f(1)
+- g()
+
+(call f x 10)
++ f(x, 10)
+- f(y, 10)
+- f(x, 20)
+- f()
+- g(x, 10)
+
+(call f (...) x)
++ f(x)
++ f(1, x)
++ f(1, 2, x)
+- f(y)
+- f(1, y)
+
+(call (. a b) x)
++ a.b(x)
+- a.b()
+- b(a, x)
+- a(b, x)
+- b(x)
