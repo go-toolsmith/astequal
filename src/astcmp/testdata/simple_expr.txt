@@ -277,3 +277,72 @@ xyz
 - b(a, x)
 - a(b, x)
 - b(x)
+
+(struct)
++ struct{}
+- struct{a int}
+- struct{}{}
+
+(struct [a int])
++ struct{a int}
+- struct{b int}
+- struct{a string}
+- struct{}
+- struct{a int}{}
+
+(struct [a b int] [c float32])
++ struct{a, b int; c float32}
+- struct{b, a int; c float32}
+- struct{c float32; a, b int}
+- struct{a int; b int; c float32}
+- struct{}
+- struct{a, b int; c float32}{}
+
+(struct [a] [b c int])
++ struct{a; b, c int}
+- struct{a, b, c int}
+- struct{b, c int}
+- struct{_; b, c int}
+- struct{}
+- struct{a; b, c int}{}
+
+(struct a [b])
++ struct{a; b}
+- struct{b; a}
+- struct{}
+- struct{a; b}{}
+
+(func)
++ func()
+- func(int)
+- func() int
+- func() {}
+
+(func [int])
++ func(int)
+- func()
+- func(float32)
+- func(int) int
+- func() int
+- func(int) {}
+
+(func [int] [float32 float64])
++ func(int) (float32, float64)
+- func(float32) (float32, float64)
+- func(int) (float64, float32)
+- func(int) float32
+- func(int) (float32, float64) {}
+
+(func [[x y int] [z string]] [[err error]])
++ func(x, y int, z string) (err error)
+- func(x, y iny, z string) (error)
+- func(x, y iny, z string) error
+- func(x, y, z int) (err error)
+- func(x, y int, z string) (err error) {}
+
+(func [[_ _ z int] [x int]] [])
++ func(_, _, z int, x int)
+- func(_, z, _ int, x int)
+- func(z, _, _ int, x int)
+- func(_, _, z, x int)
+- func(_, _, z int, x int) {}
