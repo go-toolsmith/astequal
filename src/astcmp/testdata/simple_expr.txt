@@ -110,6 +110,44 @@ xyz
 - f().x.x
 - a.b.c
 
+(slice xs)
++ xs[:]
+- xs[low:high]
+- xs[low:high:max]
+- xs[0]
+
+(slice xs \nil \nil \nil)
++ xs[:]
+- xs[nil:nil:nil]
+
+(slice xs low)
++ xs[low:]
+- xs[:low]
+- xs[low:high]
+- xs[low:high:max]
+- xs[0]
+
+(slice xs \nil high)
++ xs[:high]
+- xs[high:]
+- xs[low:high]
+- xs[low:high:max]
+- xs[0]
+
+(slice xs low high)
++ xs[low:high]
+- xs[high:low]
+- xs[low:high:max]
+- xs[0]
+
+(slice xs low high max)
++ xs[low:high:max]
+- xs[low:max:high]
+- xs[max:low:high]
+- xs[high:max:low]
+- xs[low:high]
+- xs[0]
+
 (index a b)
 + a[b]
 - b[a]
@@ -172,7 +210,6 @@ xyz
 + x + y
 - y + x
 - x - y
-
 
 (- \expr)
 + -10
