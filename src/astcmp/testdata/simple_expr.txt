@@ -335,6 +335,8 @@ xyz
 
 (func [[x y int] [z string]] [[err error]])
 + func(x, y int, z string) (err error)
+- func(x, y int, z string) (_ error)
+- func(a, b int, c string) (err error)
 - func(x, y iny, z string) (error)
 - func(x, y iny, z string) error
 - func(x, y, z int) (err error)
