@@ -1,6 +1,6 @@
 # astcmp
 
-Compare AST nodes by patterns, strings or directly. 
+Compare AST nodes by patterns, strings or directly.
 
 ## Use cases
 
@@ -16,3 +16,8 @@ This list includes programs like:
 ## Description
 
 TODO.
+
+The best way to learn about pattern matching is to inspect these test suites:
+- [Matching expressions](src/astcmp/testdata/simple_expr.txt)
+- [Matching statements](src/astcmp/testdata/simple_stmt.txt)
+- [Matching declarations](src/astcmp/testdata/simple_decl.txt)
