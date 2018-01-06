@@ -110,6 +110,24 @@ xyz
 - f().x.x
 - a.b.c
 
+(index a b)
++ a[b]
+- b[a]
+
+(index a b c)
++ a[b][c]
+- a[c][b]
+- a[a][a]
+- c[b][a]
+
+(index m \string \int)
++ m[""][0]
++ m["abc"][1]
+- m[""]
+- m[0][1]
+- m[""][""]
+- ""
+
 (== \expr nil)
 + x == nil
 + f() == nil
