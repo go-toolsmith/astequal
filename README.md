@@ -22,3 +22,4 @@ The best way to learn about pattern matching is to inspect these test suites:
 - [Matching statements](src/astcmp/testdata/simple_stmt.txt)
 - [Matching declarations](src/astcmp/testdata/simple_decl.txt)
 - [Matching complex statements](src/astcmp/testdata/complex_stmt.txt)
+- [Matching complex expressions](src/astcmp/testdata/complex_expr.txt)
