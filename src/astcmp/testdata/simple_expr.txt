@@ -333,6 +333,45 @@ xyz
 - a(b, x)
 - b(x)
 
+(array [] int)
++ []int
+- [10]int
+- [][]int
+- int
+
+(array [][] int)
++ [][]int
+- [10]int
+- []int
+- int
+
+(array [][][] float32)
++ [][][]float32
+- [][]float32
+- int
+
+(array [] (array [] (array [] float32)))
++ [][][]float32
+- [][]float32
+- [][][]int
+- int
+
+(array [10][][(+ x 20)] int)
++ [10][][x + 20]int
+- [15][][x + 20]int
+- [10][][20]int
+- []int
+- int
+
+(array [][x][y][z][] string)
++ [][x][y][z][]string
+- [][][][][]string
+- [x][y][z][]string
+
+(array [(call len xs)] int)
++ [len(xs)]int
+- [xs]int
+
 (struct)
 + struct{}
 - struct{a int}
