@@ -1,4 +1,4 @@
-(+ $a:\expr $a:\expr)
+(+ $a:\expr $a)
 + 1 + 1
 + x + x
 + x*2 + x*2
@@ -6,7 +6,14 @@
 - x + y
 - x*2 + x*3
 
-(call f $a:\expr \... $a:\expr)
+(+ (+ $a:\string $a) $a)
++ "" + "" + ""
++ "a" + "a" + "a"
+- "" + "" + "a"
+- "a" + "a"
+- "a" + "b" + "c"
+
+(call f $a:\expr \... $a)
 + f(1, x, 1)
 + f("x", "x")
 + f(x, 1, 2, x)
@@ -15,3 +22,13 @@
 - f(1, x, 2)
 - f(x+2, 0, x+1)
 - f("x", "y)
+
+(array [$a:\int][$a] \expr)
++ [10][10]int
++ [16][16]string
++ [8][8]func(int) bool
++ [16][16][]int
++ [16][16][][]int
+- [10][16]int
+- [16]int
+- []int
