@@ -1,0 +1,64 @@
+(block \...
+       (:= $xs:\ident (call make (array [] \expr)))
+       (range (:= $i:\ident $ys:\ident)
+         \...
+         (= $xs (call append $xs (index $ys $i)))
+         \...)
+       \...)
++ {
+    xs := make([]int)
+    for i := range ys {
+      xs = append(xs, ys[i])
+    }
+  }
++ {
+    xs := make([]int)
+    for i := range ys {
+      // Loop can contain unrelated parts because "range"
+      // pattern body uses "\..." sub-patterns.
+      xs = append(xs, ys[i])
+      log.Printf("%v\n", xs[i])
+    }
+  }
++ {
+    // Slice of slices is OK too, because our
+    // pattern expects "slice of any element type" (expr),
+    // and "slice of ints" as valid element type as any other.
+    xs := make([][]int)
+    for i := range ys {
+      xs = append(xs, ys[i])
+    }
+    return xs
+  }
++ {
+    println("unrelated 1")
+    dst := make([]int)
+    for idx := range src {
+      dst = append(dst, src[idx])
+    }
+    println("unrelated 2")
+  }
+- {
+    // Will not match because of "make" arguments.
+    xs := make([]int, 0, len(ys))
+    for i := range ys {
+      xs = append(xs, ys[i])
+    }
+  }
+- {
+    // Rejected due to mismatching identifiers inside and
+    // outside of the loop.
+    xs := make([]int)
+    for i := range b {
+      a = append(a, b[i])
+    }
+    return xs
+  }
+- {
+    // Rejected because of mismatched index expression.
+    xs := make([]int)
+    for i := range ys {
+      xs = append(xs, ys[k])
+    }
+  }
+- {}
