@@ -1,6 +1,9 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/Quasilyte/astcmp)](https://goreportcard.com/report/github.com/Quasilyte/astcmp)
+[![GoDoc](https://godoc.org/github.com/Quasilyte/astcmp?status.svg)](https://godoc.org/github.com/Quasilyte/astcmp)
+
 # astcmp
 
-Compare AST nodes by patterns, strings or directly.
+Compare AST nodes by their printed representations (strings) or directly.
 
 ## Use cases
 
@@ -10,16 +13,5 @@ specific patterns.
 This list includes programs like:
 - Static code analyzers and linters
 - Go code analyzers
-- Editor/IDE extensions for code search by syntax-aware queries
 - Source-level code optimizers
 
-## Description
-
-TODO.
-
-The best way to learn about pattern matching is to inspect these test suites:
-- [Matching expressions](src/astcmp/testdata/simple_expr.txt)
-- [Matching statements](src/astcmp/testdata/simple_stmt.txt)
-- [Matching declarations](src/astcmp/testdata/simple_decl.txt)
-- [Matching complex statements](src/astcmp/testdata/complex_stmt.txt)
-- [Matching complex expressions](src/astcmp/testdata/complex_expr.txt)
