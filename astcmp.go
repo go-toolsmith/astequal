@@ -7,7 +7,8 @@ import (
 )
 
 // Equal returns true for structurally equal AST nodes x and y.
-// Nil arguments are permitted.
+//
+// Nil arguments are permitted: true is returned if x and y are both nils.
 //
 // See also: EqualExpr, EqualStmt, EqualDecl.
 func Equal(x, y ast.Node) bool {
@@ -15,21 +16,24 @@ func Equal(x, y ast.Node) bool {
 }
 
 // EqualExpr returns true for structually equal AST expressions x and y.
-// Nil arguments are permitted.
+//
+// Nil arguments are permitted: true is returned if x and y are both nils.
 // ast.BadExpr comparison always yields false.
 func EqualExpr(x, y ast.Expr) bool {
 	return astExprEq(x, y)
 }
 
 // EqualStmt returns true for structually equal AST statements x and y.
-// Nil arguments are permitted.
+//
+// Nil arguments are permitted: true is returned if x and y are both nils.
 // ast.BadStmt comparison always yields false.
 func EqualStmt(x, y ast.Stmt) bool {
 	return astStmtEq(x, y)
 }
 
 // EqualDecl returns true for structually equal AST declarations x and y.
-// Nil arguments are permitted.
+//
+// Nil arguments are permitted: true is returned if x and y are both nils.
 // ast.BadDecl comparison always yields false.
 func EqualDecl(x, y ast.Decl) bool {
 	return astDeclEq(x, y)
