@@ -1,3 +1,5 @@
+// Package astcmp provides functions to compare AST nodes by their printed
+// representations (strings) or directly.
 package astcmp
 
 import (
