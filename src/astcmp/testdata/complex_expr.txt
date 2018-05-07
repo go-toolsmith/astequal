@@ -1,5 +1,0 @@
-(call (. errors New) (call (. fmt Sprintf) \...))
-+ errors.New(fmt.Sprintf("%s", x))
-+ errors.New(fmt.Sprintf("open connection: %v", err))
-- errors.New(err.Error())
-- errors.New("")

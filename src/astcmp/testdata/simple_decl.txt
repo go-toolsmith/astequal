@@ -1,8 +1,0 @@
-\decl
-+ var x int
-+ const x int = 1
-+ const (x, y = a, b)
-+ type x y
-+ type x struct{}
-+ type x interface{A(); B()}
-+ func f() int { return 0 }

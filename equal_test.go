@@ -1,14 +1,16 @@
 package astcmp
 
-import "testing"
+import (
+	"testing"
+)
 
 type astEqualTest struct {
-	// x/y - expr/stmt/decl strings.
+	// x and y are expr/stmt/decl strings.
 
 	x string
 	y string
 
-	want bool
+	equal bool
 }
 
 func TestEqualExprNils(t *testing.T) {
@@ -26,15 +28,16 @@ func TestEqualDeclNils(t *testing.T) {
 func TestEqualExprString(t *testing.T) {
 	runTest := func(t *testing.T, test astEqualTest) {
 		have := EqualExprString(test.x, test.y)
-		if have != test.want {
+		want := test.equal
+		if have != want {
 			t.Errorf("EqualExprString:\nx: %q\ny: %q\nhave: %v\nwant: %v",
-				test.x, test.y, have, test.want)
+				test.x, test.y, have, test.equal)
 			return
 		}
 		have = Equal(astParseExpr(test.x), astParseExpr(test.y))
-		if have != test.want {
+		if have != test.equal {
 			t.Errorf("Equal:\nx: %q\ny: %q\nhave: %v\nwant: %v",
-				test.x, test.y, have, test.want)
+				test.x, test.y, have, test.equal)
 		}
 	}
 	runTests := func(name string, tests []astEqualTest) {
@@ -49,9 +52,9 @@ func TestEqualExprString(t *testing.T) {
 
 		for _, x := range expressions {
 			tests = append(tests, astEqualTest{
-				x:    x,
-				y:    `/**/` + x + `/**/`,
-				want: true,
+				x:     x,
+				y:     `/**/` + x + `/**/`,
+				equal: true,
 			})
 			tests = append(tests, astEqualTest{x: x, y: `a[` + x + `]`})
 			for _, y := range expressions {
@@ -214,15 +217,15 @@ func TestEqualExprString(t *testing.T) {
 func TestEqualStmtString(t *testing.T) {
 	runTest := func(t *testing.T, test astEqualTest) {
 		have := EqualStmtString(test.x, test.y)
-		if have != test.want {
+		if have != test.equal {
 			t.Errorf("EqualStmtString:\nx: %q\ny: %q\nhave: %v\nwant: %v",
-				test.x, test.y, have, test.want)
+				test.x, test.y, have, test.equal)
 			return
 		}
 		have = Equal(astParseStmt(test.x), astParseStmt(test.y))
-		if have != test.want {
+		if have != test.equal {
 			t.Errorf("Equal:\nx: %q\ny: %q\nhave: %v\nwant: %v",
-				test.x, test.y, have, test.want)
+				test.x, test.y, have, test.equal)
 		}
 	}
 	runTests := func(name string, tests []astEqualTest) {
@@ -237,9 +240,9 @@ func TestEqualStmtString(t *testing.T) {
 
 		for _, x := range expressions {
 			tests = append(tests, astEqualTest{
-				x:    x,
-				y:    `/**/` + x + `/**/`,
-				want: true,
+				x:     x,
+				y:     `/**/` + x + `/**/`,
+				equal: true,
 			})
 			tests = append(tests, astEqualTest{x: x, y: `{` + x + `}`})
 			for _, y := range expressions {
@@ -413,15 +416,15 @@ func TestEqualStmtString(t *testing.T) {
 func TestEqualDeclString(t *testing.T) {
 	runTest := func(t *testing.T, test astEqualTest) {
 		have := EqualDeclString(test.x, test.y)
-		if have != test.want {
+		if have != test.equal {
 			t.Errorf("EqualDeclString:\nx: %q\ny: %q\nhave: %v\nwant: %v",
-				test.x, test.y, have, test.want)
+				test.x, test.y, have, test.equal)
 			return
 		}
 		have = Equal(astParseDecl(test.x), astParseDecl(test.y))
-		if have != test.want {
+		if have != test.equal {
 			t.Errorf("Equal:\nx: %q\ny: %q\nhave: %v\nwant: %v",
-				test.x, test.y, have, test.want)
+				test.x, test.y, have, test.equal)
 		}
 	}
 	runTests := func(name string, tests []astEqualTest) {
@@ -436,9 +439,9 @@ func TestEqualDeclString(t *testing.T) {
 
 		for _, x := range expressions {
 			tests = append(tests, astEqualTest{
-				x:    x,
-				y:    `/**/` + x + `/**/`,
-				want: true,
+				x:     x,
+				y:     `/**/` + x + `/**/`,
+				equal: true,
 			})
 			for _, y := range expressions {
 				if x == y {

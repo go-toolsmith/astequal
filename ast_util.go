@@ -27,11 +27,7 @@ func astParseExpr(s string) ast.Expr {
 // astParseStmt parses single statement node from s.
 // In case of parse error, ast.BadStmt is returned.
 func astParseStmt(s string) ast.Stmt {
-	node, err := parser.ParseFile(
-		emptyFileSet,
-		"",
-		"package main;func main() {"+s+"}",
-		0)
+	node, err := parser.ParseFile(emptyFileSet, "", "package main;func main() {"+s+"}", 0)
 	if err != nil {
 		return badStmt
 	}
@@ -41,11 +37,7 @@ func astParseStmt(s string) ast.Stmt {
 // astParseDecl parses single declaration node from s.
 // In case of parse error, ast.BadDecl is returned.
 func astParseDecl(s string) ast.Decl {
-	node, err := parser.ParseFile(
-		emptyFileSet,
-		"",
-		"package main;"+s,
-		0)
+	node, err := parser.ParseFile(emptyFileSet, "", "package main;"+s, 0)
 	if err != nil {
 		return badDecl
 	}
