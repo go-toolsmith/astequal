@@ -1,19 +1,17 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/Quasilyte/astcmp)](https://goreportcard.com/report/github.com/Quasilyte/astcmp)
-[![GoDoc](https://godoc.org/github.com/Quasilyte/astcmp?status.svg)](https://godoc.org/github.com/Quasilyte/astcmp)
+[![Go Report Card](https://goreportcard.com/badge/github.com/go-toolsmith/astequal)](https://goreportcard.com/report/github.com/go-toolsmith/astequal)
+[![GoDoc](https://godoc.org/github.com/go-toolsmith/astequal?status.svg)](https://godoc.org/github.com/go-toolsmith/astequal)
 
-# astcmp
+# astequal
 
-Compare AST nodes by their printed representations (strings) or directly.
+Package astequal provides AST (deep) equallity check operations.
 
-## Quick start
+## Installation:
 
-### Installation:
-
-```
-go get -u github.com/Quasilyte/astcmp
+```bash
+go get github.com/go-toolsmith/astequal
 ```
 
-### Simple example"
+## Example
 
 ```go
 package main
@@ -26,7 +24,7 @@ import (
 	"log"
 	"reflect"
 
-	"github.com/Quasilyte/astcmp"
+	"github.com/go-toolsmith/astequal"
 )
 
 func main() {
@@ -48,19 +46,7 @@ func main() {
 	x := fn.Body.List[0]
 	y := fn.Body.List[1]
 	fmt.Println(reflect.DeepEqual(x, y)) // => false
-	fmt.Println(astcmp.Equal(x, y))      // => true
-	fmt.Println(astcmp.EqualStmt(x, y))  // => true
-
-	fmt.Println(astcmp.EqualExprString(`x + y`, `x+y`)) // => true
+	fmt.Println(astequal.Node(x, y))     // => true
+	fmt.Println(astequal.Stmt(x, y))     // => true
 }
 ```
-
-## Use cases
-
-`astcmp` is intended to be used by Go tools that examine `go/ast` nodes for
-specific patterns.
-
-This list includes programs like:
-- Go static code analyzers and linters
-- Source-level code optimizers
-
