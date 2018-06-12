@@ -1,5 +1,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/go-toolsmith/astequal)](https://goreportcard.com/report/github.com/go-toolsmith/astequal)
 [![GoDoc](https://godoc.org/github.com/go-toolsmith/astequal?status.svg)](https://godoc.org/github.com/go-toolsmith/astequal)
+[![Build Status](https://travis-ci.org/go-toolsmith/astequal.svg?branch=master)](https://travis-ci.org/go-toolsmith/astequal)
+
 
 # astequal
 
