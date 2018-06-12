@@ -61,7 +61,7 @@ func main() {
 `astequal` outperforms reflection-based comparison by a big margin:
 
 ```
-BenchmarkEqualExpr/astequal.Expr-8       5000000     277 ns/op       0 B/op   0 allocs/op
-BenchmarkEqualExpr/astequal.Node-8       5000000     367 ns/op       0 B/op   0 allocs/op
-BenchmarkEqualExpr/reflect.DeepEqual-8     50000   27115 ns/op   10189 B/op   156 allocs/op
+BenchmarkEqualExpr/astequal.Expr-8       5000000     298 ns/op       0 B/op   0 allocs/op
+BenchmarkEqualExpr/astequal.Node-8       3000000     409 ns/op       0 B/op   0 allocs/op
+BenchmarkEqualExpr/reflect.DeepEqual-8     50000   38898 ns/op   10185 B/op   156 allocs/op
 ```
