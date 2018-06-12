@@ -1,7 +1,9 @@
-package astcmp
+package astequal
 
 import (
 	"testing"
+
+	"github.com/go-toolsmith/strparse" // Only for testing
 )
 
 type astEqualTest struct {
@@ -27,17 +29,12 @@ func TestEqualDeclNils(t *testing.T) {
 
 func TestEqualExprString(t *testing.T) {
 	runTest := func(t *testing.T, test astEqualTest) {
-		have := EqualExprString(test.x, test.y)
+		have := equalExprString(test.x, test.y)
 		want := test.equal
 		if have != want {
-			t.Errorf("EqualExprString:\nx: %q\ny: %q\nhave: %v\nwant: %v",
+			t.Errorf("equalExprString:\nx: %q\ny: %q\nhave: %v\nwant: %v",
 				test.x, test.y, have, test.equal)
 			return
-		}
-		have = Equal(astParseExpr(test.x), astParseExpr(test.y))
-		if have != test.equal {
-			t.Errorf("Equal:\nx: %q\ny: %q\nhave: %v\nwant: %v",
-				test.x, test.y, have, test.equal)
 		}
 	}
 	runTests := func(name string, tests []astEqualTest) {
@@ -216,16 +213,11 @@ func TestEqualExprString(t *testing.T) {
 
 func TestEqualStmtString(t *testing.T) {
 	runTest := func(t *testing.T, test astEqualTest) {
-		have := EqualStmtString(test.x, test.y)
+		have := equalStmtString(test.x, test.y)
 		if have != test.equal {
-			t.Errorf("EqualStmtString:\nx: %q\ny: %q\nhave: %v\nwant: %v",
+			t.Errorf("equalStmtString:\nx: %q\ny: %q\nhave: %v\nwant: %v",
 				test.x, test.y, have, test.equal)
 			return
-		}
-		have = Equal(astParseStmt(test.x), astParseStmt(test.y))
-		if have != test.equal {
-			t.Errorf("Equal:\nx: %q\ny: %q\nhave: %v\nwant: %v",
-				test.x, test.y, have, test.equal)
 		}
 	}
 	runTests := func(name string, tests []astEqualTest) {
@@ -415,16 +407,11 @@ func TestEqualStmtString(t *testing.T) {
 
 func TestEqualDeclString(t *testing.T) {
 	runTest := func(t *testing.T, test astEqualTest) {
-		have := EqualDeclString(test.x, test.y)
+		have := equalDeclString(test.x, test.y)
 		if have != test.equal {
-			t.Errorf("EqualDeclString:\nx: %q\ny: %q\nhave: %v\nwant: %v",
+			t.Errorf("equalDeclString:\nx: %q\ny: %q\nhave: %v\nwant: %v",
 				test.x, test.y, have, test.equal)
 			return
-		}
-		have = Equal(astParseDecl(test.x), astParseDecl(test.y))
-		if have != test.equal {
-			t.Errorf("Equal:\nx: %q\ny: %q\nhave: %v\nwant: %v",
-				test.x, test.y, have, test.equal)
 		}
 	}
 	runTests := func(name string, tests []astEqualTest) {
@@ -510,4 +497,16 @@ func TestEqualDeclString(t *testing.T) {
 		`func (B) f() {}`,
 		`func (a A) f() {}`,
 		`func (b B) f() {}`)
+}
+
+func equalExprString(x, y string) bool {
+	return Expr(strparse.Expr(x), strparse.Expr(y))
+}
+
+func equalStmtString(x, y string) bool {
+	return Stmt(strparse.Stmt(x), strparse.Stmt(y))
+}
+
+func equalDeclString(x, y string) bool {
+	return Decl(strparse.Decl(x), strparse.Decl(y))
 }

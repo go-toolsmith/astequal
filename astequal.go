@@ -1,9 +1,43 @@
-package astcmp
+// Package astequal provides AST (deep) equallity check operations.
+package astequal
 
 import (
 	"go/ast"
 	"go/token"
 )
+
+// Node reports whether two AST nodes are structurally (deep) equal.
+//
+// Nil arguments are permitted: true is returned if x and y are both nils.
+//
+// See also: Expr, Stmt, Decl functions.
+func Node(x, y ast.Node) bool {
+	return astNodeEq(x, y)
+}
+
+// Expr reports whether two AST expressions are structurally (deep) equal.
+//
+// Nil arguments are permitted: true is returned if x and y are both nils.
+// ast.BadExpr comparison always yields false.
+func Expr(x, y ast.Expr) bool {
+	return astExprEq(x, y)
+}
+
+// Stmt reports whether two AST statements are structurally (deep) equal.
+//
+// Nil arguments are permitted: true is returned if x and y are both nils.
+// ast.BadStmt comparison always yields false.
+func Stmt(x, y ast.Stmt) bool {
+	return astStmtEq(x, y)
+}
+
+// Decl reports whether two AST declarations are structurally (deep) equal.
+//
+// Nil arguments are permitted: true is returned if x and y are both nils.
+// ast.BadDecl comparison always yields false.
+func Decl(x, y ast.Decl) bool {
+	return astDeclEq(x, y)
+}
 
 // Functions to perform deep equallity checks between arbitrary AST nodes.
 
