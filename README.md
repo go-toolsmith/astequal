@@ -47,6 +47,9 @@ func main() {
 	fn := pkg.Decls[0].(*ast.FuncDecl)
 	x := fn.Body.List[0]
 	y := fn.Body.List[1]
+
+	// Reflect DeepEqual will fail due to different Pos values.
+	// astequal only checks whether two nodes describe AST.
 	fmt.Println(reflect.DeepEqual(x, y)) // => false
 	fmt.Println(astequal.Node(x, y))     // => true
 	fmt.Println(astequal.Stmt(x, y))     // => true
