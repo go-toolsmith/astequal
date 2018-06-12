@@ -1,6 +1,7 @@
 package astequal
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/go-toolsmith/strparse" // Only for testing
@@ -509,4 +510,28 @@ func equalStmtString(x, y string) bool {
 
 func equalDeclString(x, y string) bool {
 	return Decl(strparse.Decl(x), strparse.Decl(y))
+}
+
+func BenchmarkEqualExpr(b *testing.B) {
+	x := strparse.Expr(`f(x+y, a.b.c()/(-d), xs...)+first(g1)`)
+	y := strparse.Expr(`f(x+y, a.b.c()/(-d), xs...)+first(g2)`)
+
+	b.Run("astequal.Expr", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			_ = Expr(x, y)
+			_ = Expr(x, y)
+		}
+	})
+	b.Run("astequal.Node", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			_ = Node(x, y)
+			_ = Node(x, y)
+		}
+	})
+	b.Run("reflect.DeepEqual", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			_ = reflect.DeepEqual(x, y)
+			_ = reflect.DeepEqual(x, y)
+		}
+	})
 }

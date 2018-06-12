@@ -52,3 +52,13 @@ func main() {
 	fmt.Println(astequal.Stmt(x, y))     // => true
 }
 ```
+
+## Performance
+
+`astequal` outperforms reflection-based comparison by a big margin:
+
+```
+BenchmarkEqualExpr/astequal.Expr-8       5000000     277 ns/op       0 B/op   0 allocs/op
+BenchmarkEqualExpr/astequal.Node-8       5000000     367 ns/op       0 B/op   0 allocs/op
+BenchmarkEqualExpr/reflect.DeepEqual-8     50000   27115 ns/op   10189 B/op   156 allocs/op
+```
