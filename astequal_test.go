@@ -519,19 +519,19 @@ func BenchmarkEqualExpr(b *testing.B) {
 	b.Run("astequal.Expr", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			_ = Expr(x, y)
-			_ = Expr(x, y)
+			_ = Expr(x, x)
 		}
 	})
 	b.Run("astequal.Node", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			_ = Node(x, y)
-			_ = Node(x, y)
+			_ = Node(x, x)
 		}
 	})
 	b.Run("reflect.DeepEqual", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			_ = reflect.DeepEqual(x, y)
-			_ = reflect.DeepEqual(x, y)
+			_ = reflect.DeepEqual(x, x)
 		}
 	})
 }
