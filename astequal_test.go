@@ -1,6 +1,10 @@
 package astequal
 
 import (
+	"bytes"
+	"go/ast"
+	"go/printer"
+	"go/token"
 	"reflect"
 	"testing"
 
@@ -518,20 +522,51 @@ func BenchmarkEqualExpr(b *testing.B) {
 
 	b.Run("astequal.Expr", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_ = Expr(x, y)
-			_ = Expr(x, x)
+			if Expr(x, y) {
+				b.Error("different nodes reported as equal")
+			}
+			if !Expr(x, x) {
+				b.Error("same node reported as not equal")
+			}
 		}
 	})
+
 	b.Run("astequal.Node", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_ = Node(x, y)
-			_ = Node(x, x)
+			if Node(x, y) {
+				b.Error("different nodes reported as equal")
+			}
+			if !Node(x, x) {
+				b.Error("same node reported as not equal")
+			}
 		}
 	})
+
 	b.Run("reflect.DeepEqual", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			_ = reflect.DeepEqual(x, y)
-			_ = reflect.DeepEqual(x, x)
+			if reflect.DeepEqual(x, y) {
+				b.Error("different nodes reported as equal")
+			}
+			if !reflect.DeepEqual(x, x) {
+				b.Error("same node reported as not equal")
+			}
+		}
+	})
+
+	b.Run("printer.Fprint", func(b *testing.B) {
+		fset := token.NewFileSet()
+		nodeBytes := func(x ast.Node) []byte {
+			var buf bytes.Buffer
+			printer.Fprint(&buf, fset, x)
+			return buf.Bytes()
+		}
+		for i := 0; i < b.N; i++ {
+			if bytes.Equal(nodeBytes(x), nodeBytes(y)) {
+				b.Error("different nodes reported as equal")
+			}
+			if !bytes.Equal(nodeBytes(x), nodeBytes(x)) {
+				b.Error("same node reported as not equal")
+			}
 		}
 	})
 }
