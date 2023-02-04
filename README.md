@@ -3,7 +3,6 @@
 [![build-img]][build-url]
 [![pkg-img]][pkg-url]
 [![reportcard-img]][reportcard-url]
-[![coverage-img]][coverage-url]
 [![version-img]][version-url]
 
 Package `astequal` provides AST (deep) equallity check operations.
@@ -79,7 +78,5 @@ BenchmarkEqualExpr/reflect.DeepEqual-8     50000   38898 ns/op   10185 B/op   15
 [pkg-url]: https://pkg.go.dev/github.com/go-toolsmith/astequal
 [reportcard-img]: https://goreportcard.com/badge/go-toolsmith/astequal
 [reportcard-url]: https://goreportcard.com/report/go-toolsmith/astequal
-[coverage-img]: https://codecov.io/gh/go-toolsmith/astequal/branch/main/graph/badge.svg
-[coverage-url]: https://codecov.io/gh/go-toolsmith/astequal
 [version-img]: https://img.shields.io/github/v/release/go-toolsmith/astequal
 [version-url]: https://github.com/go-toolsmith/astequal/releases
