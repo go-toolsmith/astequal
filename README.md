@@ -6,7 +6,7 @@
 [![coverage-img]][coverage-url]
 [![version-img]][version-url]
 
-Package astequal provides AST (deep) equallity check operations.
+Package `astequal` provides AST (deep) equallity check operations.
 
 ## Installation:
 
